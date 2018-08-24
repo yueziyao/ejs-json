@@ -6,6 +6,7 @@ var replaceExtension = require('replace-ext')
 var ejs = require('ejs')
 var Buffer = require('safe-buffer').Buffer
 var fs = require("fs")
+var path = require("path")
 
 var ejsJson = function (data, options, settings) {
     data = data || {}
@@ -15,9 +16,9 @@ var ejsJson = function (data, options, settings) {
 
     return through.obj(function (file, enc, cb) {
         let filename =  src.data +'/'+ RemoveChinese(file.relative)+'.json';
-
-        if(fs.existsSync(filename)){
-            data = require(filename)
+        var a = path.resolve(filename)
+        if(fs.existsSync(a)){
+            data = require(a)
         }else {
             data = {}
         }
